@@ -20,7 +20,7 @@ const getPostMetadata = (): PostMetadata[] => {
   });
 
   // Sort posts by date in descending order
-  posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  // posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return posts;
 };
