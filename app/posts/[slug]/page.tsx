@@ -25,7 +25,7 @@ const PostPage = (props: any) => {
     <div>
       <div className="my-12 text-center">
         <h1 className="text-2xl text-[#FFD700] ">{post.data.title}</h1>
-        <p className="text-[#deb887] mt-2">{post.data.date}</p>
+        {/* <p className="text-[#deb887] mt-2">{post.data.date}</p> */}
       </div>
 
       <article className="prose text-[#deb887] markdown-content">
