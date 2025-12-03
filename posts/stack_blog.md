@@ -35,7 +35,7 @@ But don’t worry — now I’m the one slapping back. 💥
 For every element in the array, find the **next element on the right** that is greater than it.
 
 In simple language:  
-> “Who is the next guy that flexes more than me?” 😎
+ “Who is the next guy that flexes more than me?” 😎
 
 **How we fail initially:**  
 We loop from left → right  
@@ -48,7 +48,7 @@ use a stack to keep only the “useful heroes”,
 and discard all the weaklings on the way.
 
 **Harvey Specter explanation:**  
-> “Win a case before it even starts. Remove unnecessary people before they waste your time.”  
+ “Win a case before it even starts. Remove unnecessary people before they waste your time.”  
 That’s exactly what stack does. ✨
 
 ---
@@ -58,7 +58,7 @@ That’s exactly what stack does. ✨
 Find the next element on the right that is smaller.
 
 AKA:  
-> “Who is the next guy shorter than me?” 😌
+ “Who is the next guy shorter than me?” 😌
 
 Approach is the exact sibling of NGE.  
 Just instead of greater → look for smaller.
@@ -78,10 +78,10 @@ It’s literally NGE… but the camera turned 180 degrees. 📸
 And bro…  
 first time I learned this I was like:
 
-> “Array la pakkathula irukura number ah patha podhuma? Why reverse, why stack, why stress??”
+ “Array la pakkathula irukura number ah patha podhuma? Why reverse, why stack, why stress??”
 
 Then stack said:  
-> “Because I’m efficient, da.” 😎
+ “Because I’m efficient, da.” 😎
 
 ---
 
@@ -94,7 +94,7 @@ Find the element on the LEFT that is smaller or equal.
 
 The first time I read that “or equal”…  
 my brain:  
-> “Ayoo extra condition ah? Already confuse pannitinga.” 😭
+ “Ayoo extra condition ah? Already confuse pannitinga.” 😭
 
 But guess what?  
 Same stack principle.  
@@ -120,17 +120,17 @@ You are now the Harvey Specter of stack problems. 😎🧠🔥
 
 # 🎭 How It Felt When I Finally Understood This
 First 2 days:  
-> “What the hell is this? Why so many variants??” 🤬
+ “What the hell is this? Why so many variants??” 🤬
 
 Day 3:  
-> “Oh…  
-> so everything is the SAME problem with direction changes?!” 😭💡
+ “Oh…  
+ so everything is the SAME problem with direction changes?!” 😭💡
 
 Day 4:  
-> “I am unstoppable.” 😎🔥
+ “I am unstoppable.” 😎🔥
 
 Day 5:  
-> “Let me teach the world.” 🧘‍♂️✨
+ “Let me teach the world.” 🧘‍♂️✨
 
 ---
 
