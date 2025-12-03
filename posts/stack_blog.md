@@ -1,4 +1,3 @@
-
 ---
 title: "Stack Sorcery: NSE, NGE, PGE & PSEE Explained With Drama 🔥🧠"
 subtitle: "How I Went From Confused Coder 🤦‍♂️ to Stack Specialist 😎"
