@@ -19,7 +19,7 @@ Let’s begin.
 ## 🤝 The Beginning: Me vs Stack
 When I first heard words like **Next Smaller Element**, **Previous Greater Element**, I legit thought:
 
-> “Bro, why are we comparing exes here? Just let the past go da.” 😭
+ “Bro, why are we comparing exes here? Just let the past go da.” 😭
 
 But no.  
 Turns out it’s just DSA… but with attitude.
