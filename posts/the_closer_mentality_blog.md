@@ -143,9 +143,6 @@ It needs:
 I’m working on it daily.  
 Slowly. Silently. Consistently.  
 
-Because like Harvey said:  
-
-**“Success is like being pregnant. Everyone congratulates you, but nobody knows how many times you got screwed.”**
 
 I’m preparing myself to EARN that success.  
 And so should you.
@@ -189,11 +186,11 @@ your discipline,
 **your version of Harvey.**  
 
 Because once you adopt the closer mentality…  
-**you stop competing with the world.  
-You start competing with your old self.** 😎🔥  
+**you stop competing with the world.** 
+**You start competing with your old self.** 😎🔥  
 
 ---
 
-🔥 **Prepare like a closer.  
-Think like a closer.  
-Become YOUR version of Harvey Specter.** 🔥
+🔥 **Prepare like a closer.**  
+**Think like a closer.**  
+**Become YOUR version of Harvey Specter.** 🔥
