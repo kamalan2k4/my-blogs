@@ -14,34 +14,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const apiKey = process.env.PLAUSIBLE_API_KEY;
 
   if (!siteId || !apiKey) {
-    console.error("Missing PLAUSIBLE_SITE_ID or PLAUSIBLE_API_KEY env vars");
     return res.status(500).json({ error: "Plausible env vars not set" });
   }
 
-  // your route is /posts/[slug]
-  const pagePath = `/posts/${slug}`;
+  // 🔥 flexible regex match — matches /posts/<slug>, /posts/<slug>/index, etc.
+  const filter = `event:page=~^/posts/${slug}`;
 
   const params = new URLSearchParams({
     site_id: siteId,
-    period: "12mo",          // 🔥 changed from "all" to "12mo"
+    period: "12mo",
     metrics: "pageviews",
-    filters: `event:page==${pagePath}`,
+    filters: filter,
   });
 
   try {
     const response = await fetch(`${PLAUSIBLE_API_URL}?${params.toString()}`, {
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-      },
+      headers: { Authorization: `Bearer ${apiKey}` },
     });
 
     const text = await response.text();
 
     if (!response.ok) {
-      console.error("Plausible API error:", response.status, text);
+      console.error("Plausible API error:", text);
       return res.status(500).json({
         error: "Failed to fetch from Plausible",
-        status: response.status,
         details: text,
       });
     }
@@ -51,10 +47,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     return res.status(200).json({ slug, views });
   } catch (error: any) {
-    console.error("Views API error:", error);
     return res.status(500).json({
       error: "Internal server error",
-      details: String(error),
+      details: error.toString(),
     });
   }
 }
