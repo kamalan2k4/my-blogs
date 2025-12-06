@@ -1,9 +1,10 @@
-"use client"
+"use client";
+
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import "../styles/globals.css";
-import Head from "next/head";
+import Script from "next/script"; // ✅ added
 
 export default function RootLayout({
   children,
@@ -54,7 +55,6 @@ export default function RootLayout({
     "Did you try light mode? Adorable. 😂 But we’re here to code, not go blind. 🌑✨",
     "Oh, bright mode? That’s sweet! But dark mode is for the pros. Stick with the legends! 😎🌌",
   ];
-  
 
   // Function to toggle dark mode
   const toggleDarkMode = () => {
@@ -85,13 +85,11 @@ export default function RootLayout({
       <div className="text-center bg-[#1b1a1e] p-8 my-6 rounded-md w-full">
         {/* Dark Mode Toggle Button */}
         <button
-  onClick={toggleDarkMode}
-  className="absolute top-4 right-4 p-4 sm:p-3 bg-gray-800 text-white rounded-full text-3xl sm:text-4xl flex items-center justify-center"
->
-  {isDarkMode ? "🌙" : "🌞"}
-</button>
-
-
+          onClick={toggleDarkMode}
+          className="absolute top-4 right-4 p-4 sm:p-3 bg-gray-800 text-white rounded-full text-3xl sm:text-4xl flex items-center justify-center"
+        >
+          {isDarkMode ? "🌙" : "🌞"}
+        </button>
 
         <Image
           src="/profile.jpg"
@@ -101,17 +99,22 @@ export default function RootLayout({
           alt={"logo"}
         />
         <Link href="/">
-          <h1 className="text-2xl text-[#adff2f] font-bold mt-4">kamal's Blog</h1>
+          <h1 className="text-2xl text-[#adff2f] font-bold mt-4">kamal&apos;s Blog</h1>
         </Link>
         <p className="text-[#adff2f]">🤟 Welcome to my tech blog. 💻</p>
 
         <div className="mt-4 max-w-lg mx-auto p-4 text-[#deb887] text-center sm:text-left">
           <h2 className="text-lg font-semibold text-[#deb887] mb-2">About Me</h2>
           <p className="leading-relaxed">
-            Hey there, I’m Kamal! 🤘 A tech enthusiast with a knack for sharing my mostly silly (and occasionally brilliant 🤯) discoveries in the coding world. This blog is my playground, where I spill the beans on what I’m learning—whether it’s the basics, the latest tech, or random tidbits that might make you go, “Wait, that’s a thing?” 😅
+            Hey there, I’m Kamal! 🤘 A tech enthusiast with a knack for sharing my mostly silly (and occasionally
+            brilliant 🤯) discoveries in the coding world. This blog is my playground, where I spill the beans on what
+            I’m learning—whether it’s the basics, the latest tech, or random tidbits that might make you go, “Wait,
+            that’s a thing?” 😅
           </p>
           <p className="leading-relaxed mt-3">
-            Here, you’ll find a mix of flexing, cheeky jokes, and even the occasional “mokka” humor to keep things real. Coding is fun, and I write these posts with that same energy! So if you’re having a rough day, stop by—you’ll either walk away grinning or at least wondering, “What was that?!” 😜
+            Here, you’ll find a mix of flexing, cheeky jokes, and even the occasional “mokka” humor to keep things
+            real. Coding is fun, and I write these posts with that same energy! So if you’re having a rough day, stop
+            by—you’ll either walk away grinning or at least wondering, “What was that?!” 😜
           </p>
           <p className="leading-relaxed mt-3">
             Stick around, laugh a little, learn a lot, and remember: coding is fun, and so is reading about it here! 🎉
@@ -132,9 +135,23 @@ export default function RootLayout({
   return (
     <html>
       <head>
-        <title>kamal's Blog</title>
+        <title>kamal&apos;s Blog</title>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <link rel="icon" href="/profile.jpg" />
+
+        {/* ✅ Plausible Analytics */}
+        <Script async src="https://plausible.io/js/pa-Vb2Is6ehl8_kGyF11joqo.js" />
+        <Script id="plausible-init" strategy="afterInteractive">
+          {`
+            window.plausible = window.plausible || function() {
+              (plausible.q = plausible.q || []).push(arguments)
+            };
+            plausible.init = plausible.init || function(i) {
+              plausible.o = i || {};
+            };
+            plausible.init();
+          `}
+        </Script>
       </head>
       <body>
         <div className="mx-auto max-w-2xl px-6">
@@ -151,10 +168,8 @@ export default function RootLayout({
                   className="mx-auto rounded-full"
                   alt={"logo"}
                 />
-                
-                <p className="text-lg text-center">
-                  {selectedPhrase}
-                </p>
+
+                <p className="text-lg text-center">{selectedPhrase}</p>
                 <button
                   onClick={closeModal}
                   className="mt-4 w-full bg-post text-white p-2 rounded-md"
