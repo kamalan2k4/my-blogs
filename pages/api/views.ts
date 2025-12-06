@@ -3,7 +3,10 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 const PLAUSIBLE_API_URL = "https://plausible.io/api/v2/query";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { slug } = req.query;
 
   if (!slug || typeof slug !== "string") {
@@ -15,19 +18,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (!siteId || !apiKey) {
     console.error("Missing PLAUSIBLE_SITE_ID or PLAUSIBLE_API_KEY env vars");
-    return res.status(500).json({ error: "Plausible env vars not set" });
+    return res
+      .status(500)
+      .json({ error: "Plausible env vars not set on the server" });
   }
 
-  // Your real URLs are like: /posts/stack_blog, /posts/05, etc.
+  // Your real page paths: /posts/<slug>
   const pagePath = `/posts/${slug}`;
 
-  // v2 Stats API query body
+  // 👇 This body follows the docs you pasted.
+  // - POST to /api/v2/query
+  // - metrics: ["pageviews"]
+  // - date_range: "all" (since start of stats)
+  // - filters: contains event:page "/posts/<slug>"
   const body = {
     site_id: siteId,
-    metrics: ["pageviews"],       // we want "views"
-    date_range: "12mo",           // last 12 months (can change to "all" if you want)
+    metrics: ["pageviews"],
+    date_range: "all",
     filters: [
-      ["is", "event:page", [pagePath]], // only this page
+      [
+        "contains",
+        "event:page",
+        [pagePath], // match any page containing "/posts/<slug>"
+      ],
     ],
   };
 
@@ -35,7 +48,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const response = await fetch(PLAUSIBLE_API_URL, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${apiKey}`,
+        Authorization: `Bearer ${apiKey}`, // Stats API key
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
@@ -52,12 +65,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
     }
 
-    // v2 response: results is an array, metrics in order of "metrics" array
-    // we requested metrics: ["pageviews"], so metrics[0] is pageviews
+    // According to docs:
+    // results: [ { metrics: [pageviews], dimensions: [] }, ... ]
     const results = (data as any).results as { metrics: number[] }[] | undefined;
     const views =
       results && results.length > 0 && Array.isArray(results[0].metrics)
-        ? results[0].metrics[0]
+        ? results[0].metrics[0] // first metric = pageviews
         : 0;
 
     return res.status(200).json({ slug, views });
