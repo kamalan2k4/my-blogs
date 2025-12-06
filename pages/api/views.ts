@@ -1,7 +1,7 @@
 // pages/api/views.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 
-const PLAUSIBLE_API_URL = "https://plausible.io/api/v1/stats/aggregate";
+const PLAUSIBLE_API_URL = "https://plausible.io/api/v2/query";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { slug } = req.query;
@@ -18,40 +18,47 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(500).json({ error: "Plausible env vars not set" });
   }
 
-  // 👇 EXACT page path as shown in your Top Pages: /posts/<slug>
+  // Your real URLs are like: /posts/stack_blog, /posts/05, etc.
   const pagePath = `/posts/${slug}`;
 
-  // Plausible v1 example for "Visitors to /some/path" is:
-  // /api/v1/stats/aggregate?site_id=...&period=6mo&filters=event:page==/some/path
-  const params = new URLSearchParams({
+  // v2 Stats API query body
+  const body = {
     site_id: siteId,
-    period: "12mo",                    // last 12 months (includes today)
-    filters: `event:page==${pagePath}` // strict equality, no regex
-    // NOTE: metrics defaults to "visitors" if not specified
-  });
+    metrics: ["pageviews"],       // we want "views"
+    date_range: "12mo",           // last 12 months (can change to "all" if you want)
+    filters: [
+      ["is", "event:page", [pagePath]], // only this page
+    ],
+  };
 
   try {
-    const response = await fetch(`${PLAUSIBLE_API_URL}?${params.toString()}`, {
+    const response = await fetch(PLAUSIBLE_API_URL, {
+      method: "POST",
       headers: {
         Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
       },
+      body: JSON.stringify(body),
     });
 
-    const text = await response.text();
+    const data = await response.json();
 
     if (!response.ok) {
-      console.error("Plausible API error:", response.status, text);
+      console.error("Plausible API error:", response.status, data);
       return res.status(500).json({
         error: "Failed to fetch from Plausible",
         status: response.status,
-        details: text,
+        details: data,
       });
     }
 
-    const data = JSON.parse(text);
-
-    // We are now reading "visitors" (same metric you see in Top Pages)
-    const views = data?.results?.visitors?.value ?? 0;
+    // v2 response: results is an array, metrics in order of "metrics" array
+    // we requested metrics: ["pageviews"], so metrics[0] is pageviews
+    const results = (data as any).results as { metrics: number[] }[] | undefined;
+    const views =
+      results && results.length > 0 && Array.isArray(results[0].metrics)
+        ? results[0].metrics[0]
+        : 0;
 
     return res.status(200).json({ slug, views });
   } catch (error: any) {
