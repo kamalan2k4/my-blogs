@@ -18,13 +18,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(500).json({ error: "Plausible env vars not set" });
   }
 
-  // 🔥 IMPORTANT: this must match your real URL structure
-  // Your links are /posts/${slug}, so:
+  // your route is /posts/[slug]
   const pagePath = `/posts/${slug}`;
 
   const params = new URLSearchParams({
     site_id: siteId,
-    period: "all", // or "30d", "6mo", etc.
+    period: "12mo",          // 🔥 changed from "all" to "12mo"
     metrics: "pageviews",
     filters: `event:page==${pagePath}`,
   });
@@ -36,18 +35,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
     });
 
+    const text = await response.text();
+
     if (!response.ok) {
-      const text = await response.text();
-      console.error("Plausible API error:", text);
-      return res.status(500).json({ error: "Failed to fetch from Plausible" });
+      console.error("Plausible API error:", response.status, text);
+      return res.status(500).json({
+        error: "Failed to fetch from Plausible",
+        status: response.status,
+        details: text,
+      });
     }
 
-    const data = await response.json();
+    const data = JSON.parse(text);
     const views = data?.results?.pageviews?.value ?? 0;
 
     return res.status(200).json({ slug, views });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Views API error:", error);
-    return res.status(500).json({ error: "Internal server error" });
+    return res.status(500).json({
+      error: "Internal server error",
+      details: String(error),
+    });
   }
 }
