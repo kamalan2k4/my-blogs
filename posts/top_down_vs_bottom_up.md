@@ -1,4 +1,3 @@
-
 ---
 title: "Top-Down vs Bottom-Up: The Day I Finally Stopped Getting Confused 🤯➡️😎"
 subtitle: "A Friendly, No-BS Guide to Understanding Approaches in Problem Solving"
