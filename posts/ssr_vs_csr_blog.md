@@ -52,7 +52,6 @@ The answer decides whether it's SSR or CSR.
 
 # Client-Side Rendering (CSR)
 
-![CSR Illustration](https://upload.wikimedia.org/wikipedia/commons/1/1d/Client-server-model.svg)
 
 1. Browser requests the page.
 2. Server sends an almost empty HTML and a JavaScript bundle.
