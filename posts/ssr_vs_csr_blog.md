@@ -16,7 +16,7 @@ The interviewer asked:
 
 I confidently replied:
 
-> "In SSR, the server renders the component and sends the HTML file to the browser."
+> **"In SSR, the server renders the component and sends the HTML file to the browser."**
 
 I thought I cooked.
 
@@ -40,7 +40,7 @@ That sentence sent me on a rabbit hole that ended with me understanding SSR and 
 
 Rendering simply means:
 
-> Taking your code and turning it into something the user can see on the screen.
+> **Taking your code and turning it into something the user can see on the screen.**
 
 The question is:
 
@@ -144,7 +144,7 @@ Browser shows content immediately
 
 Then my next question was:
 
-> If HTML is already there, why do we still need JavaScript?
+> **If HTML is already there, why do we still need JavaScript?**
 
 Because HTML is just the picture.
 
@@ -236,7 +236,7 @@ Hydrate
 
 # When Should You Use What?
 
-| Situation | Better Choice |
+| **Situation** | **Better Choice** |
 |-----------|----------------|
 | Blogs | SSR |
 | Marketing Pages | SSR |
@@ -249,7 +249,7 @@ Hydrate
 
 # The Interview Answer I'd Give Today
 
-> In Server-Side Rendering, the server executes React components and generates HTML on the server itself. The browser receives this pre-rendered HTML and displays content immediately. Along with the HTML, JavaScript is also sent so React can hydrate the page and attach event handlers, making the page interactive.
+> **In Server-Side Rendering, the server executes React components and generates HTML on the server itself. The browser receives this pre-rendered HTML and displays content immediately. Along with the HTML, JavaScript is also sent so React can hydrate the page and attach event handlers, making the page interactive.**
 
 ---
 
@@ -261,11 +261,11 @@ I was just… incomplete.
 
 And sometimes in tech, that's the difference between:
 
-> "Knows React"
+> **"Knows React"**
 
 and
 
-> "Understands React."
+> **"Understands React."**
 
 As Harvey Specter would say:
 
